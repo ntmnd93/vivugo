@@ -6,7 +6,10 @@ export default function TravelerLayout({ children }: { children: React.ReactNode
       <header className="border-b border-border/60">
         <div className="mx-auto flex max-w-3xl items-center px-6 py-4">
           <Link href="/" className="flex items-center gap-2 font-semibold tracking-tight">
-            <span className="flex size-7 items-center justify-center rounded-lg bg-primary text-sm text-primary-foreground">
+            <span
+              className="flex size-8 items-center justify-center rounded-xl text-sm font-bold text-white shadow-sm"
+              style={{ backgroundImage: "var(--brand-gradient)" }}
+            >
               V
             </span>
             <span>VivuGo</span>

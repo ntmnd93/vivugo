@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { serviceTypeMeta, formatVnd } from "@/lib/service-labels";
 import { companionOptions } from "@/lib/ai/itinerary-schema";
@@ -57,13 +57,23 @@ export default async function ItineraryPage({ params }: PageProps<"/itinerary/[i
                   const meta = serviceTypeMeta[item.service.type];
                   const Icon = meta.icon;
                   return (
-                    <Card key={item.id}>
+                    <Card
+                      key={item.id}
+                      className="border-l-4 transition-shadow hover:shadow-sm"
+                      style={{ borderLeftColor: meta.color }}
+                    >
                       <CardContent className="flex items-start gap-4 py-4">
                         <div className="flex flex-col items-center gap-1 pt-1 text-xs text-muted-foreground">
                           <Clock className="size-3.5" />
                           {item.startTime}
                         </div>
-                        <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                        <div
+                          className="flex size-10 shrink-0 items-center justify-center rounded-lg"
+                          style={{
+                            backgroundColor: `color-mix(in oklch, ${meta.color} 16%, transparent)`,
+                            color: meta.color,
+                          }}
+                        >
                           <Icon className="size-5" />
                         </div>
                         <div className="flex-1">
@@ -87,19 +97,25 @@ export default async function ItineraryPage({ params }: PageProps<"/itinerary/[i
         })}
       </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base">Ưng ý với lịch trình này?</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <Button asChild size="lg">
-            <Link href={`/combo/new?itineraryId=${itinerary.id}`}>
-              <PackagePlus className="size-4" />
-              Chọn dịch vụ để gộp combo ưu đãi
-            </Link>
-          </Button>
-        </CardContent>
-      </Card>
+      <div
+        className="flex flex-col items-start gap-4 rounded-2xl px-6 py-6 text-white sm:flex-row sm:items-center sm:justify-between"
+        style={{ backgroundImage: "var(--brand-gradient)" }}
+      >
+        <div>
+          <p className="font-semibold">Ưng ý với lịch trình này?</p>
+          <p className="text-sm text-white/80">Gộp combo để nhận giá ưu đãi hơn đặt lẻ.</p>
+        </div>
+        <Button
+          asChild
+          size="lg"
+          className="bg-white text-[oklch(0.5_0.16_35)] shadow-lg shadow-black/10 hover:bg-white/90"
+        >
+          <Link href={`/combo/new?itineraryId=${itinerary.id}`}>
+            <PackagePlus className="size-4" />
+            Chọn dịch vụ để gộp combo ưu đãi
+          </Link>
+        </Button>
+      </div>
     </div>
   );
 }

@@ -95,7 +95,13 @@ export function ComboBuilder({
                   >
                     <CardContent className="flex cursor-pointer items-center gap-4 py-3">
                       <Checkbox checked={checked} onCheckedChange={() => toggle(item.id)} />
-                      <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                      <div
+                        className="flex size-9 shrink-0 items-center justify-center rounded-lg"
+                        style={{
+                          backgroundColor: `color-mix(in oklch, ${meta.color} 16%, transparent)`,
+                          color: meta.color,
+                        }}
+                      >
                         <Icon className="size-4.5" />
                       </div>
                       <div className="flex-1">

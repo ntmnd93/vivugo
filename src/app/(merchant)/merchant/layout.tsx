@@ -25,7 +25,10 @@ export default async function MerchantLayout({ children }: { children: React.Rea
         <div className="mx-auto flex max-w-5xl flex-col gap-3 px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-3">
             <Link href="/" className="flex items-center gap-2 font-semibold tracking-tight">
-              <span className="flex size-7 items-center justify-center rounded-lg bg-primary text-sm text-primary-foreground">
+              <span
+                className="flex size-8 items-center justify-center rounded-xl text-sm font-bold text-white shadow-sm"
+                style={{ backgroundImage: "var(--brand-gradient)" }}
+              >
                 V
               </span>
               <span>VivuGo Merchant</span>
