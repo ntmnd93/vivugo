@@ -108,7 +108,7 @@ export default async function ItineraryPage({ params }: PageProps<"/itinerary/[i
         <Button
           asChild
           size="lg"
-          className="bg-white text-[oklch(0.5_0.16_35)] shadow-lg shadow-black/10 hover:bg-white/90"
+          className="bg-white text-[oklch(0.48_0.15_250)] shadow-lg shadow-black/10 hover:bg-white/90"
         >
           <Link href={`/combo/new?itineraryId=${itinerary.id}`}>
             <PackagePlus className="size-4" />

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { comingSoonFeatures } from "@/lib/coming-soon-features";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { LogoMark } from "@/components/logo-mark";
 import { ArrowLeft, Construction } from "lucide-react";
 
 export default async function ComingSoonPage({ params }: PageProps<"/coming-soon/[feature]">) {
@@ -18,12 +19,7 @@ export default async function ComingSoonPage({ params }: PageProps<"/coming-soon
       <header className="border-b border-border/60">
         <div className="mx-auto flex max-w-3xl items-center px-6 py-4">
           <Link href="/" className="flex items-center gap-2 font-semibold tracking-tight">
-            <span
-              className="flex size-8 items-center justify-center rounded-xl text-sm font-bold text-white shadow-sm"
-              style={{ backgroundImage: "var(--brand-gradient)" }}
-            >
-              V
-            </span>
+            <LogoMark className="h-9 w-auto" />
             <span>VivuGo</span>
           </Link>
         </div>

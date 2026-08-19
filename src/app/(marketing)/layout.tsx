@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { LogoMark } from "@/components/logo-mark";
 
 export default function MarketingLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -7,12 +8,7 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
       <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <Link href="/" className="flex items-center gap-2 font-semibold tracking-tight">
-            <span
-              className="flex size-8 items-center justify-center rounded-xl text-sm font-bold text-white shadow-sm"
-              style={{ backgroundImage: "var(--brand-gradient)" }}
-            >
-              V
-            </span>
+            <LogoMark className="h-9 w-auto" />
             <span>VivuGo</span>
           </Link>
           <nav className="flex items-center gap-2">

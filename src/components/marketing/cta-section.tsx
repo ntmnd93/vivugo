@@ -20,7 +20,7 @@ export function CtaSection() {
         <Button
           size="lg"
           asChild
-          className="bg-white text-[oklch(0.5_0.16_35)] shadow-lg shadow-black/10 hover:bg-white/90"
+          className="bg-white text-[oklch(0.48_0.15_250)] shadow-lg shadow-black/10 hover:bg-white/90"
         >
           <Link href="/plan">
             Bắt đầu lập lịch trình

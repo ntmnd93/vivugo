@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
+import { LogoMark } from "@/components/logo-mark";
 import { LayoutDashboard, Users, Radar } from "lucide-react";
 
 const navItems = [
@@ -15,12 +16,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <div className="mx-auto flex max-w-5xl flex-col gap-3 px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-3">
             <Link href="/" className="flex items-center gap-2 font-semibold tracking-tight">
-              <span
-                className="flex size-8 items-center justify-center rounded-xl text-sm font-bold text-white shadow-sm"
-                style={{ backgroundImage: "var(--brand-gradient)" }}
-              >
-                V
-              </span>
+              <LogoMark className="h-9 w-auto" />
               <span>VivuGo Admin</span>
             </Link>
             <Badge variant="secondary">Chế độ demo</Badge>
