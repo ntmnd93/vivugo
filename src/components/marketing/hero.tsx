@@ -1,7 +1,9 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Sparkles, MapPin, Ticket, Bot } from "lucide-react";
+import { stockPhotos } from "@/lib/stock-photos";
 
 const stats = [
   { icon: MapPin, label: "Đà Nẵng · Hội An" },
@@ -12,9 +14,18 @@ const stats = [
 export function Hero() {
   return (
     <section className="relative isolate overflow-hidden">
+      <Image
+        src={stockPhotos.baNaHills.url}
+        alt={stockPhotos.baNaHills.alt}
+        fill
+        priority
+        sizes="100vw"
+        className="-z-30 object-cover"
+      />
+      <div aria-hidden className="absolute inset-0 -z-20 bg-black/35" />
       <div
         aria-hidden
-        className="absolute inset-0 -z-20"
+        className="absolute inset-0 -z-20 opacity-80 mix-blend-multiply"
         style={{ backgroundImage: "var(--brand-gradient)" }}
       />
       <div
@@ -31,11 +42,11 @@ export function Hero() {
           <Sparkles className="size-3.5" />
           Lập lịch trình bằng AI trong 30 giây
         </Badge>
-        <h1 className="max-w-3xl text-balance text-4xl font-bold tracking-tight text-white sm:text-6xl">
+        <h1 className="max-w-3xl text-balance text-4xl font-bold tracking-tight text-white drop-shadow-sm sm:text-6xl">
           Chuyến đi trong mơ của bạn,
           <br className="hidden sm:block" /> do AI thiết kế riêng
         </h1>
-        <p className="max-w-xl text-balance text-lg text-white/85">
+        <p className="max-w-xl text-balance text-lg text-white/90 drop-shadow-sm">
           Nhập ngân sách, số ngày và sở thích — VivuGo tự động dựng lịch trình theo từng
           khung giờ, gộp combo ưu đãi và gói gọn mọi vé, phòng vào một mã QR duy nhất.
         </p>
@@ -62,7 +73,7 @@ export function Hero() {
 
         <div className="mt-4 flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
           {stats.map((s) => (
-            <div key={s.label} className="flex items-center gap-1.5 text-sm text-white/80">
+            <div key={s.label} className="flex items-center gap-1.5 text-sm text-white/90 drop-shadow-sm">
               <s.icon className="size-4" />
               {s.label}
             </div>
