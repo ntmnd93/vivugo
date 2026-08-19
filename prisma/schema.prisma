@@ -1,0 +1,240 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum ServiceType {
+  HOTEL
+  TOUR
+  RESTAURANT
+  TRANSPORT
+}
+
+enum CompanionType {
+  SOLO
+  COUPLE
+  FAMILY
+  FRIENDS
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  CANCELLED
+}
+
+enum TicketStatus {
+  ISSUED
+  REDEEMED
+}
+
+enum LedgerPartyType {
+  MERCHANT
+  LOGISTICS
+  PLATFORM
+}
+
+model Destination {
+  id          String   @id @default(cuid())
+  name        String
+  region      String
+  description String?
+  createdAt   DateTime @default(now())
+
+  services    Service[]
+  itineraries Itinerary[]
+  merchants   Merchant[]
+}
+
+model Merchant {
+  id          String   @id @default(cuid())
+  name        String
+  type        ServiceType
+  destinationId String
+  slug        String   @unique
+  contactName String?
+  createdAt   DateTime @default(now())
+
+  destination     Destination       @relation(fields: [destinationId], references: [id])
+  services        Service[]
+  orderItems      OrderItem[]
+  ledgerEntries   LedgerEntry[]
+  ticketRedemptions TicketRedemption[]
+}
+
+model Service {
+  id            String      @id @default(cuid())
+  merchantId    String
+  destinationId String
+  type          ServiceType
+  name          String
+  description   String?
+  priceVnd      Int
+  durationMinutes Int?
+  imageUrl      String?
+  tags          String      // comma-joined InterestTag-like values, e.g. "food,culture"
+  addressOrArea String?
+  isActive      Boolean     @default(true)
+  createdAt     DateTime    @default(now())
+
+  merchant       Merchant        @relation(fields: [merchantId], references: [id])
+  destination    Destination     @relation(fields: [destinationId], references: [id])
+  itineraryItems ItineraryItem[]
+  comboItems     ComboItem[]
+  orderItems     OrderItem[]
+}
+
+model Itinerary {
+  id                    String        @id @default(cuid())
+  travelerName          String?
+  budgetVnd             Int
+  days                  Int
+  companionType         CompanionType
+  interests             String        // comma-joined
+  destinationId         String
+  status                String        @default("draft")
+  summary               String?
+  totalEstimatedCostVnd Int?
+  createdAt             DateTime      @default(now())
+
+  destination Destination      @relation(fields: [destinationId], references: [id])
+  items       ItineraryItem[]
+  combos      Combo[]
+}
+
+model ItineraryItem {
+  id          String    @id @default(cuid())
+  itineraryId String
+  serviceId   String
+  dayNumber   Int
+  startTime   String    // "HH:MM"
+  order       Int
+  notes       String?
+
+  itinerary  Itinerary   @relation(fields: [itineraryId], references: [id], onDelete: Cascade)
+  service    Service     @relation(fields: [serviceId], references: [id])
+  comboItems ComboItem[]
+
+  @@index([itineraryId])
+}
+
+model Combo {
+  id           String   @id @default(cuid())
+  itineraryId  String?
+  title        String
+  subtotalVnd  Int
+  discountVnd  Int
+  totalVnd     Int
+  createdAt    DateTime @default(now())
+
+  itinerary Itinerary?  @relation(fields: [itineraryId], references: [id])
+  items     ComboItem[]
+  orders    Order[]
+}
+
+model ComboItem {
+  id              String  @id @default(cuid())
+  comboId         String
+  serviceId       String
+  itineraryItemId String?
+  unitPriceVnd    Int
+  quantity        Int     @default(1)
+
+  combo         Combo          @relation(fields: [comboId], references: [id], onDelete: Cascade)
+  service       Service        @relation(fields: [serviceId], references: [id])
+  itineraryItem ItineraryItem? @relation(fields: [itineraryItemId], references: [id])
+
+  @@index([comboId])
+}
+
+model Order {
+  id               String      @id @default(cuid())
+  comboId          String?
+  status           OrderStatus @default(PENDING)
+  totalVnd         Int
+  travelerName     String?
+  travelerContact  String?
+  createdAt        DateTime    @default(now())
+  paidAt           DateTime?
+
+  combo         Combo?         @relation(fields: [comboId], references: [id])
+  items         OrderItem[]
+  ledgerEntries LedgerEntry[]
+  ticket        Ticket?
+}
+
+model OrderItem {
+  id            String @id @default(cuid())
+  orderId       String
+  serviceId     String
+  merchantId    String
+  unitPriceVnd  Int
+  quantity      Int    @default(1)
+  lineTotalVnd  Int
+
+  order             Order              @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  service           Service            @relation(fields: [serviceId], references: [id])
+  merchant          Merchant           @relation(fields: [merchantId], references: [id])
+  ledgerEntries     LedgerEntry[]
+  ticketRedemptions TicketRedemption[]
+
+  @@index([orderId])
+  @@index([merchantId])
+}
+
+model LedgerEntry {
+  id             String          @id @default(cuid())
+  orderId        String
+  orderItemId    String?
+  partyType      LedgerPartyType
+  merchantId     String?
+  amountVnd      Int
+  percentApplied Float
+  createdAt      DateTime        @default(now())
+
+  order     Order      @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  orderItem OrderItem? @relation(fields: [orderItemId], references: [id])
+  merchant  Merchant?  @relation(fields: [merchantId], references: [id])
+
+  @@index([orderId])
+  @@index([merchantId])
+}
+
+model SplitConfig {
+  id          String   @id @default(cuid())
+  name        String   @default("default")
+  merchantPct Float
+  logisticsPct Float
+  platformPct Float
+  isActive    Boolean  @default(true)
+  updatedAt   DateTime @updatedAt
+}
+
+model Ticket {
+  id          String       @id @default(cuid())
+  orderId     String       @unique
+  qrPayload   String
+  status      TicketStatus @default(ISSUED)
+  issuedAt    DateTime     @default(now())
+  redeemedAt  DateTime?
+
+  order       Order              @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  redemptions TicketRedemption[]
+}
+
+model TicketRedemption {
+  id          String   @id @default(cuid())
+  ticketId    String
+  orderItemId String
+  merchantId  String
+  redeemedAt  DateTime @default(now())
+
+  ticket    Ticket    @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  orderItem OrderItem @relation(fields: [orderItemId], references: [id])
+  merchant  Merchant  @relation(fields: [merchantId], references: [id])
+
+  @@unique([ticketId, orderItemId])
+}
