@@ -8,8 +8,7 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
       <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <Link href="/" className="flex items-center gap-2 font-semibold tracking-tight">
-            <LogoMark className="h-9 w-auto" />
-            <span>VivuGo</span>
+            <LogoMark className="h-12 w-auto" />
           </Link>
           <nav className="flex items-center gap-2">
             <Button variant="ghost" asChild className="hidden sm:inline-flex">

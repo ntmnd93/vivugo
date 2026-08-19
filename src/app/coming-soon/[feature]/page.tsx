@@ -19,8 +19,7 @@ export default async function ComingSoonPage({ params }: PageProps<"/coming-soon
       <header className="border-b border-border/60">
         <div className="mx-auto flex max-w-3xl items-center px-6 py-4">
           <Link href="/" className="flex items-center gap-2 font-semibold tracking-tight">
-            <LogoMark className="h-9 w-auto" />
-            <span>VivuGo</span>
+            <LogoMark className="h-12 w-auto" />
           </Link>
         </div>
       </header>

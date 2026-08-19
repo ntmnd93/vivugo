@@ -15,6 +15,9 @@ const HOP_BY_HOP_HEADERS = new Set([
   "transfer-encoding",
   "keep-alive",
   "accept-encoding",
+  // fetch() transparently decompresses the upstream body, so keeping this
+  // header would tell the client to gzip-decode already-plain bytes.
+  "content-encoding",
 ]);
 
 async function relay(req: NextRequest, path: string[]) {

@@ -3,12 +3,12 @@ import Image from "next/image";
 export function LogoMark({ className }: { className?: string }) {
   return (
     <Image
-      src="/logo-icon.png"
+      src="/logo.png"
       alt="VivuGo"
-      width={805}
-      height={453}
+      width={824}
+      height={720}
       priority
-      className={className ?? "h-8 w-auto"}
+      className={className ?? "h-12 w-auto"}
     />
   );
 }

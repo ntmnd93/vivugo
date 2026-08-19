@@ -26,8 +26,7 @@ export default async function MerchantLayout({ children }: { children: React.Rea
         <div className="mx-auto flex max-w-5xl flex-col gap-3 px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-3">
             <Link href="/" className="flex items-center gap-2 font-semibold tracking-tight">
-              <LogoMark className="h-9 w-auto" />
-              <span>VivuGo Merchant</span>
+              <LogoMark className="h-12 w-auto" />
             </Link>
             <Badge variant="secondary" className="gap-1">
               {merchant.name}
