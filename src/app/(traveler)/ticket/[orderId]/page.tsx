@@ -1,11 +1,13 @@
 import { notFound, redirect } from "next/navigation";
 import Image from "next/image";
+import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { renderTicketQrDataUrl } from "@/lib/qr/generate";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { serviceTypeMeta, formatVnd } from "@/lib/service-labels";
-import { CheckCircle2, Circle, Plane, Sparkles } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { CheckCircle2, Circle, Plane, Sparkles, Wallet } from "lucide-react";
 
 export default async function TicketPage({ params }: PageProps<"/ticket/[orderId]">) {
   const { orderId } = await params;
@@ -83,6 +85,20 @@ export default async function TicketPage({ params }: PageProps<"/ticket/[orderId
           <p className="font-mono text-xs text-muted-foreground">
             #{order.ticket.id.slice(0, 8).toUpperCase()}
           </p>
+          <div className="flex gap-2">
+            <Button asChild variant="outline" size="sm">
+              <Link href="/coming-soon/apple-wallet">
+                <Wallet className="size-3.5" />
+                Apple Wallet
+              </Link>
+            </Button>
+            <Button asChild variant="outline" size="sm">
+              <Link href="/coming-soon/google-wallet">
+                <Wallet className="size-3.5" />
+                Google Wallet
+              </Link>
+            </Button>
+          </div>
         </div>
 
         <div className="flex flex-col gap-3 px-6 py-6">

@@ -27,9 +27,17 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
       </header>
       <main className="flex-1">{children}</main>
       <footer className="border-t border-border/60 py-8 text-sm text-muted-foreground">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-6 sm:flex-row">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-6 sm:flex-row">
           <p>© {new Date().getFullYear()} VivuGo. Sàn du lịch thông minh — bản demo.</p>
-          <p>Đà Nẵng · Hội An</p>
+          <div className="flex items-center gap-4">
+            <Link href="/coming-soon/affiliate" className="hover:text-foreground">
+              Chương trình Affiliate
+            </Link>
+            <Link href="/admin" className="hover:text-foreground">
+              VivuGo Admin
+            </Link>
+            <span>Đà Nẵng · Hội An</span>
+          </div>
         </div>
       </footer>
     </div>

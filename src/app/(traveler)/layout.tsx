@@ -1,10 +1,11 @@
 import Link from "next/link";
+import { MapPinned } from "lucide-react";
 
 export default function TravelerLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex min-h-full flex-col">
       <header className="border-b border-border/60">
-        <div className="mx-auto flex max-w-3xl items-center px-6 py-4">
+        <div className="mx-auto flex max-w-3xl items-center justify-between px-6 py-4">
           <Link href="/" className="flex items-center gap-2 font-semibold tracking-tight">
             <span
               className="flex size-8 items-center justify-center rounded-xl text-sm font-bold text-white shadow-sm"
@@ -13,6 +14,13 @@ export default function TravelerLayout({ children }: { children: React.ReactNode
               V
             </span>
             <span>VivuGo</span>
+          </Link>
+          <Link
+            href="/coming-soon/location-offers"
+            className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
+          >
+            <MapPinned className="size-4" />
+            <span className="hidden sm:inline">Ưu đãi gần bạn</span>
           </Link>
         </div>
       </header>
