@@ -37,7 +37,12 @@ async function relay(req: NextRequest, path: string[]) {
     if (!HOP_BY_HOP_HEADERS.has(key.toLowerCase())) responseHeaders.set(key, value);
   });
 
-  return new NextResponse(upstream.body, { status: upstream.status, headers: responseHeaders });
+  // Buffer rather than pipe upstream.body directly — streaming a fetched
+  // Response's body straight through another Response drops the payload
+  // on Vercel's Node runtime. Gemini responses are small enough that
+  // buffering costs nothing.
+  const bodyBuffer = await upstream.arrayBuffer();
+  return new NextResponse(bodyBuffer, { status: upstream.status, headers: responseHeaders });
 }
 
 export async function GET(req: NextRequest, { params }: { params: Promise<{ path: string[] }> }) {
