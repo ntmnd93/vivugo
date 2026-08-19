@@ -76,9 +76,9 @@ export function ItineraryForm() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-2xl">Lập lịch trình bằng AI</CardTitle>
+        <CardTitle className="text-2xl">VivuGo đã sẵn sàng phục vụ</CardTitle>
         <CardDescription>
-          Cho AI biết bạn muốn gì, chúng tôi sẽ dựng lịch trình chi tiết cho chuyến đi Đà Nẵng - Hội An.
+          Hãy cho mình biết bạn muốn gì, mình giúp bạn có một chuyến đi thật đáng nhớ.
         </CardDescription>
       </CardHeader>
       <form onSubmit={handleSubmit}>
@@ -171,7 +171,7 @@ export function ItineraryForm() {
             ) : (
               <>
                 <Sparkles className="size-4" />
-                Tạo lịch trình bằng AI
+                Xây dựng lịch trình
               </>
             )}
           </Button>
